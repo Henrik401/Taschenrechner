@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Taschenrechner</title>
+    <script>
+      var numb = 0;
+      var firstNumb = 0;
+      var showFirstNumb = 0;
+      var operate = false;
+      var secondNumb = 0;
+      var showSecondNumb = 0;
+      var result = 0;
+      var add = false;
+      var sub = false;
+      var mult = false;
+      var divi = false;
+
+      function buttonNumb(x) {
+        if (operate == false) {
+          console.log(x);
+          // if (x >= 0) {
+          firstNumb += x;
+          firstNumb *= 10;
+          // console.log(numb);
+          showFirstNumb = firstNumb;
+          //  }
+          // x = -1;
+        } else {
+          secondNumb += x;
+          secondNumb *= 10;
+          showSecondNumb = secondNumb;
+        }
+        showNumb();
+      }
+
+      function showNumb() {
+        // console.log(firstNumb);
+        var input = document.getElementById("show");
+
+        if (operate == false) {
+          showFirstNumb /= 10;
+          input.innerHTML = showFirstNumb;
+
+          // input.innerHTML = firstNumb + "<br/> du ";
+          console.log(input);
+        } else {
+          showSecondNumb /= 10;
+          console.log(secondNumb);
+          console.log(add);
+          if (add == true) {
+            input.innerHTML = showFirstNumb + " +" + "<br/> " + showSecondNumb;
+          }
+          if (sub) {
+            input.innerHTML = showFirstNumb + " -" + "<br/> " + showSecondNumb;
+          }
+          if (mult) {
+            input.innerHTML = showFirstNumb + " *" + "<br/> " + showSecondNumb;
+          }
+          if (divi) {
+            input.innerHTML = showFirstNumb + " /" + "<br/> " + showSecondNumb;
+          }
+          // var input = document.getElementById("show");
+          // input.innerHTML += secondNumb;
+        }
+      }
+
+      function buttonFunc(y) {
+        operate = true;
+        //   showFirstNumb /= 10;
+        var input = document.getElementById("show");
+        var output = document.getElementById("history");
+
+        if (y == 11) {
+          input.innerHTML = "";
+          output.innerHTML = "";
+          clearAll();
+        }
+
+        if (y == 12) {
+          input.innerHTML = showFirstNumb + " =" + "<br/> " + showSecondNumb;
+        }
+
+        if (y == 13) {
+          input.innerHTML = showFirstNumb + " +" + "<br/> " + showSecondNumb;
+          add = true;
+          if (showSecondNumb > 0) {
+            secondNumb = 0;
+            result = showFirstNumb + showSecondNumb;
+            output.innerHTML =
+              showFirstNumb + " +" + showSecondNumb + " = " + result;
+          }
+        }
+
+        if (y == 14) {
+          input.innerHTML = showFirstNumb + " -" + "<br/> " + showSecondNumb;
+          sub = true;
+        }
+
+        if (y == 15) {
+          input.innerHTML = showFirstNumb + " *" + "<br/> " + showSecondNumb;
+          mult = true;
+        }
+
+        if (y == 16) {
+          input.innerHTML = showFirstNumb + " /" + "<br/> " + showSecondNumb;
+          divi = true;
+        }
+      }
+
+      function calculate() {}
+
+      //  function showHistory(){
+      //    var input = document.getElementById("history");
+      // input.innerHTML = showFirstNumb + " +" + showSecondNumb + " = " + result;
+      //  }
+
+      function clearAll() {
+        numb = 0;
+        firstNumb = 0;
+        secondNumb = 0;
+        showFirstNumb = 0;
+        showSecondNumb = 0;
+        operate = false;
+        add = false;
+        sub = false;
+        mult = false;
+        divi = false;
+      }
+    </script>
+  </head>
+  <body>
+    <section>
+      <div class="all-areas">
+        <div class="left-area">
+          <div class="operator">
+            <span id="show"></span>
+          </div>
+          <div class="input-fields">
+            <!--Emmet: button.button[onclick=""]#$*10>{$} -->
+            <button class="button-style" onclick="buttonNumb(0)" id="zero">
+              0</button
+            ><button class="button-style" onclick="buttonNumb(1)" id="one">
+              1</button
+            ><button class="button-style" onclick="buttonNumb(2)" id="two">
+              2</button
+            ><button class="button-style" onclick="buttonNumb(3)" id="three">
+              3</button
+            ><button class="button-style" onclick="buttonNumb(4)" id="four">
+              4</button
+            ><button class="button-style" onclick="buttonNumb(5)" id="five">
+              5</button
+            ><button class="button-style" onclick="buttonNumb(6)" id="six">
+              6</button
+            ><button class="button-style" onclick="buttonNumb(7)" id="seven">
+              7</button
+            ><button class="button-style" onclick="buttonNumb(8)" id="eight">
+              8</button
+            ><button class="button-style" onclick="buttonNumb(9)" id="nine">
+              9</button
+            ><button class="button-style" onclick="buttonFunc(11)" id="CE">
+              CE</button
+            ><button class="button-style" onclick="buttonFunc(12)" id="equal">
+              =</button
+            ><button class="button-style" onclick="buttonFunc(13)" id="add">
+              +</button
+            ><button class="button-style" onclick="buttonFunc(14)" id="sub">
+              -</button
+            ><button
+              class="button-style"
+              onclick="buttonFunc(15)"
+              id="multiply"
+            >
+              *</button
+            ><button class="button-style" onclick="buttonFunc(16)" id="divide">
+              /
+            </button>
+          </div>
+        </div>
+        <div class="right-area">
+          <span id="history"></span>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
