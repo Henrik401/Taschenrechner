@@ -10,6 +10,7 @@
       var firstNumb = 0;
       var showFirstNumb = 0;
       var operate = false;
+      var pushNumb = false;
       var secondNumb = 0;
       var showSecondNumb = 0;
       var result = 0;
@@ -17,8 +18,10 @@
       var sub = false;
       var mult = false;
       var divi = false;
+      var equal = false;
 
       function buttonNumb(x) {
+        pushNumb = true;
         if (operate == false) {
           console.log(x);
           // if (x >= 0) {
@@ -37,14 +40,12 @@
       }
 
       function showNumb() {
-        // console.log(firstNumb);
         var input = document.getElementById("show");
 
         if (operate == false) {
           showFirstNumb /= 10;
           input.innerHTML = showFirstNumb;
 
-          // input.innerHTML = firstNumb + "<br/> du ";
           console.log(input);
         } else {
           showSecondNumb /= 10;
@@ -52,6 +53,10 @@
           console.log(add);
           if (add == true) {
             input.innerHTML = showFirstNumb + " +" + "<br/> " + showSecondNumb;
+            if (result != 0) {
+              console.log(result);
+              input.innerHTML = result + " +" + "<br/> " + showSecondNumb;
+            }
           }
           if (sub) {
             input.innerHTML = showFirstNumb + " -" + "<br/> " + showSecondNumb;
@@ -62,14 +67,11 @@
           if (divi) {
             input.innerHTML = showFirstNumb + " /" + "<br/> " + showSecondNumb;
           }
-          // var input = document.getElementById("show");
-          // input.innerHTML += secondNumb;
         }
       }
 
       function buttonFunc(y) {
         operate = true;
-        //   showFirstNumb /= 10;
         var input = document.getElementById("show");
         var output = document.getElementById("history");
 
@@ -80,33 +82,157 @@
         }
 
         if (y == 12) {
-          input.innerHTML = showFirstNumb + " =" + "<br/> " + showSecondNumb;
+          if (add == true) {
+            result = showFirstNumb + showSecondNumb;
+            input.innerHTML =
+              showFirstNumb +
+              " + " +
+              showSecondNumb +
+              " = " +
+              "<br/> " +
+              result;
+            output.innerHTML +=
+              showFirstNumb + " +" + showSecondNumb + " = " + result;
+          }
+          if (sub == true) {
+            result = showFirstNumb - showSecondNumb;
+            input.innerHTML =
+              showFirstNumb +
+              " - " +
+              showSecondNumb +
+              " = " +
+              "<br/> " +
+              result;
+            output.innerHTML +=
+              showFirstNumb + " - " + showSecondNumb + " = " + result;
+          }
+          if (mult == true) {
+            result = showFirstNumb * showSecondNumb;
+            input.innerHTML =
+              showFirstNumb +
+              " * " +
+              showSecondNumb +
+              " = " +
+              "<br/> " +
+              result;
+            output.innerHTML +=
+              showFirstNumb + " * " + showSecondNumb + " = " + result;
+          }
+          if (divi == true) {
+            result = showFirstNumb / showSecondNumb;
+            input.innerHTML =
+              showFirstNumb +
+              " / " +
+              showSecondNumb +
+              " = " +
+              "<br/> " +
+              result;
+            output.innerHTML +=
+              showFirstNumb + " / " + showSecondNumb + " = " + result;
+          }
         }
 
         if (y == 13) {
-          input.innerHTML = showFirstNumb + " +" + "<br/> " + showSecondNumb;
           add = true;
-          if (showSecondNumb > 0) {
+
+          if (pushNumb == true) {
+            input.innerHTML = showFirstNumb + " +" + "<br/> " + showSecondNumb;
+          }
+
+          if (showSecondNumb != 0 && pushNumb == true) {
             secondNumb = 0;
             result = showFirstNumb + showSecondNumb;
-            output.innerHTML =
-              showFirstNumb + " +" + showSecondNumb + " = " + result;
+            output.innerHTML +=
+              "<span>" +
+              showFirstNumb +
+              " + " +
+              showSecondNumb +
+              " = " +
+              result +
+              "</span>";
+
+            input.innerHTML = result + " +" + "<br/> " + result;
+
+            showFirstNumb = result;
+            pushNumb = false;
           }
         }
 
         if (y == 14) {
-          input.innerHTML = showFirstNumb + " -" + "<br/> " + showSecondNumb;
           sub = true;
+
+          if (pushNumb == true) {
+            input.innerHTML = showFirstNumb + " -" + "<br/> " + showSecondNumb;
+          }
+
+          if (showSecondNumb != 0 && pushNumb == true) {
+            secondNumb = 0;
+            result = showFirstNumb - showSecondNumb;
+            output.innerHTML +=
+              "<span>" +
+              showFirstNumb +
+              " - " +
+              showSecondNumb +
+              " = " +
+              result +
+              "</span>";
+
+            input.innerHTML = result + " - " + "<br/> " + result;
+
+            showFirstNumb = result;
+            pushNumb = false;
+          }
         }
 
         if (y == 15) {
-          input.innerHTML = showFirstNumb + " *" + "<br/> " + showSecondNumb;
           mult = true;
+
+          if (pushNumb == true) {
+            input.innerHTML = showFirstNumb + " *" + "<br/> " + showSecondNumb;
+          }
+
+          if (showSecondNumb != 0 && pushNumb == true) {
+            secondNumb = 0;
+            result = showFirstNumb * showSecondNumb;
+            output.innerHTML +=
+              "<span>" +
+              showFirstNumb +
+              " * " +
+              showSecondNumb +
+              " = " +
+              result +
+              "</span>";
+
+            input.innerHTML = result + " * " + "<br/> " + result;
+
+            showFirstNumb = result;
+            pushNumb = false;
+          }
         }
 
         if (y == 16) {
-          input.innerHTML = showFirstNumb + " /" + "<br/> " + showSecondNumb;
           divi = true;
+
+          if (pushNumb == true) {
+            input.innerHTML = showFirstNumb + " / " + "<br/> " + showSecondNumb;
+          }
+
+          if (showSecondNumb != 0 && pushNumb == true) {
+            secondNumb = 0;
+            result = showFirstNumb / showSecondNumb;
+            output.innerHTML +=
+              "<span>" +
+              showFirstNumb +
+              " / " +
+              showSecondNumb +
+              " = " +
+              result +
+              "</span>";
+            input.innerHTML = result + " / " + "<br/> " + result;
+
+            showFirstNumb = result;
+            pushNumb = false;
+          }
         }
       }
 
@@ -123,11 +249,13 @@
         secondNumb = 0;
         showFirstNumb = 0;
         showSecondNumb = 0;
+        result = 0;
         operate = false;
         add = false;
         sub = false;
         mult = false;
         divi = false;
+        equal = false;
       }
     </script>
   </head>
@@ -179,9 +307,7 @@
             </button>
           </div>
         </div>
-        <div class="right-area">
-          <span id="history"></span>
-        </div>
+        <div class="right-area" id="history"></div>
       </div>
     </section>
   </body>
