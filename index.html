@@ -6,261 +6,189 @@
     <link rel="stylesheet" href="style.css" />
     <title>Taschenrechner</title>
     <script>
-      var firstNumb = 0;
-      var showFirstNumb = 0;
-      var secondNumb = 0;
-      var showSecondNumb = 0;
-      var result = 0;
-      var pushNumb = false;
-      var add = false;
-      var sub = false;
-      var mult = false;
-      var divi = false;
-      var equal = false;
-      var z = 0; // need z and a, when don't push = and push an operator instead
-      var a = false;
+      let getFirstNumber = 0;
+      let FirstNumber = 0;
+      let getSecondNumber = 0;
+      let SecondNumber = 0;
+      let result = 0;
+      let pushNumb = false;
+      let pushEqual = false;
+      let operator = "";
 
-      function buttonFunc(y) {
-        if (pushNumb == true || equal == true) {
-          var input = document.getElementById("show");
-          var output = document.getElementById("history");
-          if (y == 11) {
-            clearAll(input, output);
-          }
-          if (y == 12) {
-            equal = true;
-
-            if (add == true && !sub && !mult && !divi) {
-              buttonFunc(13);
-            }
-
-            if (sub == true && !add && !mult && !divi) {
-              buttonFunc(14);
-            }
-
-            if (mult == true && !sub && !add && !divi) {
-              buttonFunc(15);
-            }
-
-            if (divi == true && !sub && !mult && !add) {
-              buttonFunc(16);
-            }
-            firstNumb = 0;
-            secondNumb = 0;
-            add = false;
-            sub = false;
-            mult = false;
-            divi = false;
-            z = 0;
-          }
-
-          if (y == 13) {
-            if (mult == true || sub == true || divi == true) {
-              add = false;
-              buttonFunc(17);
-            }
-            input.innerHTML = showFirstNumb + " + ";
-            add = true;
-            sub = false;
-            mult = false;
-            divi = false;
-            z++;
-            if (z >= 2 && a == false) {
-              calculate(input, output);
-              showSecondNumb = 0;
-              result = 0;
-            }
-            a = false;
-          }
-
-          if (y == 14) {
-            if (mult == true || add == true || divi == true) {
-              sub = false;
-              buttonFunc(17);
-            }
-
-            input.innerHTML = showFirstNumb + " - ";
-
-            sub = true;
-            add = false;
-            mult = false;
-            divi = false;
-            z++;
-
-            if (z >= 2 && a == false) {
-              calculate(input, output);
-              showSecondNumb = 0;
-              result = 0;
-            }
-            a = false;
-          }
-
-          if (y == 15) {
-            if (add == true || sub == true || divi == true) {
-              mult = false;
-              buttonFunc(17);
-            }
-
-            input.innerHTML = showFirstNumb + " * ";
-
-            mult = true;
-            add = false;
-            sub = false;
-            divi = false;
-            z++;
-
-            if (z >= 2 && a == false) {
-              calculate(input, output);
-              showSecondNumb = 0;
-              result = 0;
-            }
-            a = false;
-          }
-
-          if (y == 16) {
-            if (mult == true || sub == true || add == true) {
-              divi = false;
-              buttonFunc(17);
-            }
-
-            input.innerHTML = showFirstNumb + " / ";
-
-            divi = true;
-            add = false;
-            sub = false;
-            mult = false;
-            z++;
-
-            if (z >= 2 && a == false) {
-              calculate(input, output);
-              showSecondNumb = 0;
-              result = 0;
-            }
-            a = false;
-          }
-
-          if (y == 17) {
-            a = true;
-            calculate(input, output);
-            showFirstNumb = result;
-          }
-        }
-      }
-
-      function buttonNumb(x) {
+      function getNumber(number) {
         pushNumb = true;
-        var input = document.getElementById("show");
-
-        if (!add && !mult && !sub && !divi) {
-          firstNumb += x;
-          firstNumb *= 10;
-          showFirstNumb = firstNumb;
-          showFirstNumb /= 10;
-          input.innerHTML = showFirstNumb;
+        if (operator === "") {
+          getFirstNumber += number;
+          getFirstNumber *= 10;
+          FirstNumber = getFirstNumber;
+          FirstNumber /= 10;
+          document.getElementById("Input").innerHTML = FirstNumber;
         } else {
-          secondNumb += x;
-          secondNumb *= 10;
-          showSecondNumb = secondNumb;
-          showSecondNumb /= 10;
-
-          if (add) {
-            input.innerHTML = showFirstNumb + " + " + "<br/> " + showSecondNumb;
-          }
-
-          if (sub) {
-            input.innerHTML = showFirstNumb + " - " + "<br/> " + showSecondNumb;
-          }
-
-          if (mult) {
-            input.innerHTML = showFirstNumb + " * " + "<br/> " + showSecondNumb;
-          }
-
-          if (divi) {
-            input.innerHTML = showFirstNumb + " / " + "<br/> " + showSecondNumb;
-          }
+          getSecondNumber += number;
+          getSecondNumber *= 10;
+          SecondNumber = getSecondNumber;
+          SecondNumber /= 10;
+          document.getElementById("Input").innerHTML =
+            FirstNumber + operator + "<br/> " + SecondNumber;
         }
       }
 
-      function calculate(input, output) {
-        if (add == true && !sub && !mult && !divi) {
-          result = showFirstNumb + showSecondNumb;
-
-          output.innerHTML +=
-            "<span>" +
-            showFirstNumb +
-            " + " +
-            showSecondNumb +
-            " = " +
-            result +
-            "</span>";
+      function addition() {
+        console.log(operator);
+        if (operator === " + ") {
+          calculate();
+          showInput();
+          showOutput();
+        } else if (operator != "") {
+          calculate();
+          showInput();
+          showOutput();
+          FirstNumber = result;
+          operator = " + ";
+          showInput();
+        } else {
+          operator = " + ";
+          showFirstNumber();
         }
-
-        if (sub == true && !add && !mult && !divi) {
-          result = showFirstNumb - showSecondNumb;
-
-          output.innerHTML +=
-            "<span>" +
-            showFirstNumb +
-            " - " +
-            showSecondNumb +
-            " = " +
-            result +
-            "</span>";
-        }
-
-        if (mult == true && !sub && !add && !divi) {
-          result = showFirstNumb * showSecondNumb;
-
-          output.innerHTML +=
-            "<span>" +
-            showFirstNumb +
-            " * " +
-            showSecondNumb +
-            " = " +
-            result +
-            "</span>";
-        }
-
-        if (divi == true && !sub && !mult && !add) {
-          result = showFirstNumb / showSecondNumb;
-
-          output.innerHTML +=
-            "<span>" +
-            showFirstNumb +
-            " / " +
-            showSecondNumb +
-            " = " +
-            result +
-            "</span>";
-        }
-
-        if (equal == true) {
-          input.innerHTML = result + " = " + "<br/> " + result;
-        }
-
-        secondNumb = 0;
-        showFirstNumb = result;
-        pushNumb = false;
       }
 
-      function clearAll(input, output) {
-        input.innerHTML = "";
-        output.innerHTML = "";
-        numb = 0;
-        firstNumb = 0;
-        secondNumb = 0;
-        showFirstNumb = 0;
-        showSecondNumb = 0;
+      function subtraction() {
+        if (operator === " - ") {
+          calculate();
+          showInput();
+          showOutput();
+        } else if (operator != "") {
+          calculate();
+          showInput();
+          showOutput();
+          FirstNumber = result;
+          operator = " - ";
+          showInput();
+        } else {
+          operator = " - ";
+          showFirstNumber();
+        }
+      }
+
+      function multiply() {
+        if (operator === " * ") {
+          calculate();
+          showInput();
+          showOutput();
+        } else if (operator != "") {
+          calculate();
+          showInput();
+          showOutput();
+          FirstNumber = result;
+          operator = " * ";
+          showInput();
+        } else {
+          operator = " * ";
+          showFirstNumber();
+        }
+      }
+
+      function division() {
+        if (operator === " / ") {
+          calculate();
+          showInput();
+          showOutput();
+        } else if (operator != "") {
+          calculate();
+          showInput();
+          showOutput();
+          FirstNumber = result;
+          operator = " / ";
+          showInput();
+        } else {
+          operator = " / ";
+          showFirstNumber();
+        }
+      }
+
+      function equal() {
+        pushEqual = true;
+
+        if (SecondNumber != 0) {
+          calculate();
+
+          document.getElementById("Input").innerHTML =
+            result + " = <br/>" + result;
+
+          showOutput();
+
+          FirstNumber = result;
+          operator = "";
+        } else {
+          divisionZero();
+        }
+
+        getFirstNumber = 0;
+      }
+
+      function calculate() {
+        if (pushNumb || pushEqual) {
+          if (operator === " + ") {
+            result = FirstNumber + SecondNumber;
+          } else if (operator === " - ") {
+            result = FirstNumber - SecondNumber;
+          } else if (operator === " * ") {
+            result = FirstNumber * SecondNumber;
+          } else if (operator === " / " && SecondNumber != 0) {
+            result = FirstNumber / SecondNumber;
+          } else {
+            divisionZero();
+          }
+          getSecondNumber = 0;
+        }
+      }
+
+      function divisionZero() {
+        document.getElementById("Input").innerHTML =
+          "Teilen durch Null ist nicht möglich";
+        getFirstNumber = 0;
+        getSecondNumber = 0;
+        FirstNumber = 0;
+        SecondNumber = 0;
         result = 0;
-        z = 0;
-        operate = false;
-        add = false;
-        sub = false;
-        mult = false;
-        divi = false;
-        equal = false;
+      }
+
+      function showFirstNumber() {
+        document.getElementById("Input").innerHTML =
+          FirstNumber + operator + " <br/>";
+      }
+
+      function showInput() {
+        document.getElementById("Input").innerHTML =
+          result + operator + " <br/>" + result;
+      }
+
+      function showOutput() {
+        if (pushNumb || pushEqual) {
+          document.getElementById("Output").innerHTML +=
+            "<span>" +
+            FirstNumber +
+            operator +
+            SecondNumber +
+            " = " +
+            result +
+            "</span>";
+        }
+        pushEqual = false;
         pushNumb = false;
-        a = false;
+      }
+
+      function clearAll() {
+        document.getElementById("Input").innerHTML = "";
+        document.getElementById("Output").innerHTML = "";
+        getFirstNumber = 0;
+        getSecondNumber = 0;
+        FirstNumber = 0;
+        SecondNumber = 0;
+        result = 0;
+        operator = "";
+        pushEqual = false;
+        pushNumb = false;
       }
     </script>
   </head>
@@ -269,50 +197,29 @@
       <div class="all-areas">
         <div class="left-area">
           <div class="operator">
-            <span id="show"></span>
+            <span id="Input"></span>
           </div>
           <div class="input-fields">
             <!--Emmet: button.button[onclick=""]#$*10>{$} -->
-            <button class="button-style" onclick="buttonNumb(0)" id="zero">
-              0</button
-            ><button class="button-style" onclick="buttonNumb(1)" id="one">
-              1</button
-            ><button class="button-style" onclick="buttonNumb(2)" id="two">
-              2</button
-            ><button class="button-style" onclick="buttonNumb(3)" id="three">
-              3</button
-            ><button class="button-style" onclick="buttonNumb(4)" id="four">
-              4</button
-            ><button class="button-style" onclick="buttonNumb(5)" id="five">
-              5</button
-            ><button class="button-style" onclick="buttonNumb(6)" id="six">
-              6</button
-            ><button class="button-style" onclick="buttonNumb(7)" id="seven">
-              7</button
-            ><button class="button-style" onclick="buttonNumb(8)" id="eight">
-              8</button
-            ><button class="button-style" onclick="buttonNumb(9)" id="nine">
-              9</button
-            ><button class="button-style" onclick="buttonFunc(11)" id="CE">
-              CE</button
-            ><button class="button-style" onclick="buttonFunc(12)" id="equal">
-              =</button
-            ><button class="button-style" onclick="buttonFunc(13)" id="add">
-              +</button
-            ><button class="button-style" onclick="buttonFunc(14)" id="sub">
-              -</button
-            ><button
-              class="button-style"
-              onclick="buttonFunc(15)"
-              id="multiply"
-            >
-              *</button
-            ><button class="button-style" onclick="buttonFunc(16)" id="divide">
-              /
-            </button>
+            <button class="button-style" onclick="getNumber(7)">7</button
+            ><button class="button-style" onclick="getNumber(8)">8</button
+            ><button class="button-style" onclick="getNumber(9)">9</button
+            ><button class="button-style" onclick="division()">/</button>
+            <button class="button-style" onclick="getNumber(4)">4</button
+            ><button class="button-style" onclick="getNumber(5)">5</button
+            ><button class="button-style" onclick="getNumber(6)">6</button
+            ><button class="button-style" onclick="multiply()">*</button
+            ><button class="button-style" onclick="getNumber(1)">1</button
+            ><button class="button-style" onclick="getNumber(2)">2</button
+            ><button class="button-style" onclick="getNumber(3)">3</button
+            ><button class="button-style" onclick="subtraction()">-</button>
+            <button class="button-style" onclick="clearAll();">CE</button>
+            <button class="button-style" onclick="getNumber(0)">0</button
+            ><button class="button-style" onclick="equal()">=</button>
+            <button class="button-style" onclick="addition()">+</button>
           </div>
         </div>
-        <div id="history"></div>
+        <div id="Output"></div>
       </div>
     </section>
   </body>

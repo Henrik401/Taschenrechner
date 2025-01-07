@@ -43,7 +43,7 @@
   width: 100%;
 }
 
-#history {
+#Output {
   display: flex;
   flex-direction: column-reverse;
   overflow: auto;
@@ -53,66 +53,6 @@
   font-size: 4rem;
   width: 40%;
   max-height: 100vh;
-}
-
-#zero {
-  grid-row: 4;
-  grid-column: 2;
-}
-
-#one {
-  grid-row: 3;
-  grid-column: 1;
-}
-
-#two {
-  grid-row: 3;
-  grid-column: 2;
-}
-
-#three {
-  grid-row: 3;
-  grid-column: 3;
-}
-
-#four {
-  grid-row: 2;
-  grid-column: 1;
-}
-
-#five {
-  grid-row: 2;
-  grid-column: 2;
-}
-
-#six {
-  grid-row: 2;
-  grid-column: 3;
-}
-
-#CE {
-  grid-row: 4;
-  grid-column: 1;
-}
-
-#equal {
-  grid-row: 4;
-  grid-column: 3;
-}
-
-#add {
-  grid-row: 4;
-  grid-column: 4;
-}
-
-#sub {
-  grid-row: 3;
-  grid-column: 4;
-}
-
-#multiply {
-  grid-row: 2;
-  grid-column: 4;
 }
 
 @media only screen and (max-width: 1200px) {
