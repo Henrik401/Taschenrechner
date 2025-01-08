@@ -45,7 +45,7 @@
 
 #Output {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   overflow: auto;
   align-self: self-start;
   text-align: end;

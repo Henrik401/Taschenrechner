@@ -34,15 +34,10 @@
       }
 
       function addition() {
-        console.log(operator);
         if (operator === " + ") {
-          calculate();
-          showInput();
-          showOutput();
+          calculateShowProcess();
         } else if (operator != "") {
-          calculate();
-          showInput();
-          showOutput();
+          calculateShowProcess();
           FirstNumber = result;
           operator = " + ";
           showInput();
@@ -54,13 +49,9 @@
 
       function subtraction() {
         if (operator === " - ") {
-          calculate();
-          showInput();
-          showOutput();
+          calculateShowProcess();
         } else if (operator != "") {
-          calculate();
-          showInput();
-          showOutput();
+          calculateShowProcess();
           FirstNumber = result;
           operator = " - ";
           showInput();
@@ -72,13 +63,10 @@
 
       function multiply() {
         if (operator === " * ") {
-          calculate();
-          showInput();
-          showOutput();
+          calculateShowProcess();
         } else if (operator != "") {
-          calculate();
-          showInput();
-          showOutput();
+          calculateShowProcess();
+
           FirstNumber = result;
           operator = " * ";
           showInput();
@@ -90,13 +78,9 @@
 
       function division() {
         if (operator === " / ") {
-          calculate();
-          showInput();
-          showOutput();
+          calculateShowProcess();
         } else if (operator != "") {
-          calculate();
-          showInput();
-          showOutput();
+          calculateShowProcess();
           FirstNumber = result;
           operator = " / ";
           showInput();
@@ -104,6 +88,12 @@
           operator = " / ";
           showFirstNumber();
         }
+      }
+
+      function calculateShowProcess() {
+        calculate();
+        showInput();
+        showOutput();
       }
 
       function equal() {
@@ -127,18 +117,24 @@
       }
 
       function calculate() {
+        console.log(FirstNumber);
+
         if (pushNumb || pushEqual) {
           if (operator === " + ") {
+            console.log(FirstNumber);
             result = FirstNumber + SecondNumber;
           } else if (operator === " - ") {
             result = FirstNumber - SecondNumber;
           } else if (operator === " * ") {
             result = FirstNumber * SecondNumber;
-          } else if (operator === " / " && SecondNumber != 0) {
+          } else if (operator === " / ") {
             result = FirstNumber / SecondNumber;
-          } else {
+          }
+          if (SecondNumber === 0) {
             divisionZero();
           }
+          console.log(FirstNumber);
+
           getSecondNumber = 0;
         }
       }
@@ -165,14 +161,15 @@
 
       function showOutput() {
         if (pushNumb || pushEqual) {
-          document.getElementById("Output").innerHTML +=
+          document.getElementById("Output").innerHTML =
             "<span>" +
             FirstNumber +
             operator +
             SecondNumber +
             " = " +
             result +
-            "</span>";
+            "</span>" +
+            document.getElementById("Output").innerHTML;
         }
         pushEqual = false;
         pushNumb = false;
